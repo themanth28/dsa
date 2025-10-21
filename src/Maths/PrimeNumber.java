@@ -2,9 +2,9 @@ package Maths;
 
 public class PrimeNumber {
     public static void main(String[] args) {
-        int n = 42;
+        int n = 7;
         int c = 0;
-        for(int i=1; i<Math.sqrt(n); i++){
+        for(int i=1; i<=Math.sqrt(n); i++){
             if(n%i == 0){
                 c+=1;
                 System.out.println(i);

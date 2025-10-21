@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class SampleCheck {
     public static void main(String[] args) {
         int ch = '.';
@@ -51,15 +53,21 @@ public class SampleCheck {
 //        System.out.println(a^a^c);
 //        System.out.println(0^a);
 
-        int a = 3;
-        int c = 3;
-        int b = (a & (a-1));
-        System.out.println(Integer.toBinaryString(a));
-        System.out.println(b);
-        System.out.println(Integer.toBinaryString(b));
-        Long ab = (long) Math.pow(9,9);
-        System.out.println(ab);
-        System.out.println(3%3);
+//        int a = 3;
+//        int c = 3;
+//        int b = (a & (a-1));
+//        System.out.println(Integer.toBinaryString(a));
+//        System.out.println(b);
+//        System.out.println(Integer.toBinaryString(b));
+//        Long ab = (long) Math.pow(9,9);
+//        System.out.println(ab);
+//        System.out.println(3%3);
+
+        int[] arr = {-8,-66,-60};
+        Arrays.sort(arr);
+        System.out.println(Arrays.toString(arr));
+        int a = arr.length;
+        System.out.println(Math.max(arr[a-1] + arr[0], arr[a-2] + arr[a-1]));
     }
 }
 

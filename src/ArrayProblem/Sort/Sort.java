@@ -6,10 +6,10 @@ public class Sort {
     public static void main(String[] args) {
         int[] arr = {3,4,1,5,6};
         System.out.println(Arrays.toString(arr));
-//        selection(arr);
+        selection(arr);
 //        sort(arr);
 //        insertion(arr);
-        selectionDescending(arr);
+//        selectionDescending(arr);
         System.out.println(Arrays.toString(arr));
     }
 
