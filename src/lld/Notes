@@ -1,0 +1,188 @@
+Perfect bro 🔥 this will be your Zoho Full Stack LLD + Design Pattern Cheat Sheet — short, powerful, and fully interview-ready.
+You can copy-paste this into your notes or IDE; it’s written exactly the way Zoho interviewers expect your explanations to sound.
+________________________________________
+🚀 Zoho Full-Stack Developer – Design Pattern Cheat Sheet
+________________________________________
+1️⃣ Singleton Pattern
+Purpose: One instance shared across the app (global access).
+Use Case: Logger, ConfigManager, DatabaseConnection.
+Example:
+class Logger {
+    private static Logger instance;
+    private Logger() {}
+    public static synchronized Logger getInstance() {
+        if (instance == null) instance = new Logger();
+        return instance;
+    }
+    public void log(String msg) { System.out.println("LOG: " + msg); }
+}
+Explain:
+Ensures only one Logger object exists. Thread-safe. Used for global logging or configuration.
+________________________________________
+2️⃣ Factory Pattern
+Purpose: Encapsulate object creation logic.
+Use Case: Payment creation, Notification factory.
+Example:
+interface Payment { void pay(double amount); }
+class UPIPayment implements Payment { public void pay(double a){ System.out.println("UPI ₹"+a); } }
+class CardPayment implements Payment { public void pay(double a){ System.out.println("Card ₹"+a); } }
+
+class PaymentFactory {
+    public static Payment getPayment(String type){
+        if(type.equalsIgnoreCase("UPI")) return new UPIPayment();
+        else if(type.equalsIgnoreCase("CARD")) return new CardPayment();
+        throw new IllegalArgumentException("Invalid type");
+    }
+}
+Explain:
+Factory hides “new” keyword. Client just says Payment p = PaymentFactory.getPayment("UPI").
+Useful when object creation logic may change.
+________________________________________
+3️⃣ Observer Pattern
+Purpose: One-to-many dependency; when subject changes, observers are notified.
+Use Case: Email/SMS notifications, Event listeners.
+Example:
+interface Observer { void update(String msg); }
+class EmailNotifier implements Observer { public void update(String msg){ System.out.println("Email: "+msg); } }
+class SMSNotifier implements Observer { public void update(String msg){ System.out.println("SMS: "+msg); } }
+
+class NotificationService {
+    private List<Observer> observers = new ArrayList<>();
+    public void add(Observer o){ observers.add(o); }
+    public void notifyAll(String msg){ for(Observer o:observers) o.update(msg); }
+}
+Explain:
+Subject (NotificationService) notifies multiple observers automatically.
+Decouples sender and receiver — event-driven design.
+________________________________________
+4️⃣ Strategy Pattern
+Purpose: Choose algorithm dynamically at runtime.
+Use Case: Payment methods, Sorting, Discount strategy.
+Example:
+interface PaymentStrategy { void pay(double amount); }
+class UPI implements PaymentStrategy { public void pay(double a){ System.out.println("Paid UPI ₹"+a); } }
+class Card implements PaymentStrategy { public void pay(double a){ System.out.println("Paid Card ₹"+a); } }
+
+class PaymentContext {
+    private PaymentStrategy strategy;
+    public void setStrategy(PaymentStrategy s){ this.strategy=s; }
+    public void pay(double amount){ strategy.pay(amount); }
+}
+Explain:
+Strategy lets you swap algorithms (UPI, Card) at runtime.
+Follows Open/Closed principle — add new payment types easily.
+________________________________________
+5️⃣ Builder Pattern
+Purpose: Build complex objects step-by-step.
+Use Case: Order, User, Report creation.
+Example:
+class Order {
+    String item; int qty; boolean gift;
+    private Order(Builder b){ item=b.item; qty=b.qty; gift=b.gift; }
+    static class Builder {
+        String item; int qty; boolean gift=false;
+        Builder(String item, int qty){ this.item=item; this.qty=qty; }
+        Builder giftWrap(boolean g){ this.gift=g; return this; }
+        Order build(){ return new Order(this); }
+    }
+}
+Explain:
+Builder handles optional fields neatly.
+Prevents constructor telescoping and supports fluent API.
+________________________________________
+6️⃣ Adapter Pattern
+Purpose: Convert one interface to another expected by client.
+Use Case: Integrating old APIs, 3rd-party services.
+Example:
+class OldPayment { void makePayment(double amt){ System.out.println("Old pay ₹"+amt); } }
+interface Payment { void pay(double amt); }
+
+class PaymentAdapter implements Payment {
+    OldPayment old;
+    public PaymentAdapter(OldPayment old){ this.old=old; }
+    public void pay(double amt){ old.makePayment(amt); }
+}
+Explain:
+Adapter wraps old service and exposes new interface.
+Client uses modern interface without touching legacy code.
+________________________________________
+7️⃣ Decorator Pattern
+Purpose: Add new features to objects dynamically.
+Use Case: Add-ons like “Extra cheese”, “GiftWrap”, “Logging wrapper”.
+Example:
+interface Coffee { double cost(); }
+class SimpleCoffee implements Coffee { public double cost(){ return 50; } }
+class MilkDecorator implements Coffee {
+    private Coffee coffee;
+    MilkDecorator(Coffee c){ this.coffee=c; }
+    public double cost(){ return coffee.cost()+20; }
+}
+Explain:
+Wraps objects to add functionality dynamically without modifying existing classes.
+________________________________________
+8️⃣ Command Pattern
+Purpose: Encapsulate requests as objects.
+Use Case: Undo/Redo, Task queue, Remote operations.
+Example:
+interface Command { void execute(); }
+class Light { void on(){ System.out.println("Light ON"); } void off(){ System.out.println("Light OFF"); } }
+class LightOnCommand implements Command { Light l; LightOnCommand(Light l){ this.l=l; } public void execute(){ l.on(); } }
+class Remote { Command c; Remote(Command c){ this.c=c; } void press(){ c.execute(); } }
+Explain:
+Command object encapsulates request.
+Decouples sender (Remote) and receiver (Light).
+________________________________________
+9️⃣ Proxy Pattern
+Purpose: Provide a placeholder to control access to real object.
+Use Case: Security, Lazy loading, Access control.
+Example:
+interface Image { void display(); }
+class RealImage implements Image { String name; RealImage(String n){ name=n; } public void display(){ System.out.println("Displaying "+name); } }
+class ProxyImage implements Image {
+    private RealImage real; private String name;
+    ProxyImage(String n){ name=n; }
+    public void display(){
+        if(real==null) real=new RealImage(name);
+        System.out.println("Proxy: controlling access...");
+        real.display();
+    }
+}
+Explain:
+Proxy adds access control before delegating to real object.
+________________________________________
+🔟 Template Method Pattern
+Purpose: Define algorithm skeleton, subclasses fill in steps.
+Use Case: Report generation, Authentication workflows.
+Example:
+abstract class DataProcessor {
+    public final void process(){
+        readData(); processData(); saveData();
+    }
+    abstract void readData(); abstract void processData();
+    void saveData(){ System.out.println("Saving processed data..."); }
+}
+class CSVProcessor extends DataProcessor {
+    void readData(){ System.out.println("Read CSV"); }
+    void processData(){ System.out.println("Process CSV"); }
+}
+Explain:
+Template defines fixed algorithm flow. Subclasses implement the details.
+________________________________________
+🧠 Quick Zoho Interview Notes
+✅ Most Asked Patterns: Singleton, Factory, Strategy, Observer, Builder
+✅ What to say:
+1.	“This pattern solves the problem of …”
+2.	“It provides flexibility because …”
+3.	“It follows Open/Closed principle …”
+✅ Common Real Examples:
+•	Singleton → Logger / Config
+•	Factory → Payment / Notification
+•	Observer → Email & SMS updates
+•	Strategy → Sorting or Payment
+•	Builder → Order / Report Creation
+•	Adapter → Integrating Old API
+________________________________________
+Bro, this is your complete Zoho LLD pattern pack 💪
+Would you like me to make a follow-up sheet for Object-Oriented Principles (SOLID, Encapsulation, etc.) next?
+It’s usually the next round after design patterns.
+
