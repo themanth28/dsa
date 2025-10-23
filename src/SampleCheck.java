@@ -63,11 +63,13 @@ public class SampleCheck {
 //        System.out.println(ab);
 //        System.out.println(3%3);
 
-        int[] arr = {-8,-66,-60};
-        Arrays.sort(arr);
-        System.out.println(Arrays.toString(arr));
-        int a = arr.length;
-        System.out.println(Math.max(arr[a-1] + arr[0], arr[a-2] + arr[a-1]));
+//        int[] arr = {-8,-66,-60};
+//        Arrays.sort(arr);
+//        System.out.println(Arrays.toString(arr));
+//        int a = arr.length;
+//        System.out.println(Math.max(arr[a-1] + arr[0], arr[a-2] + arr[a-1]));
+
+
     }
 }
 

@@ -57,6 +57,7 @@ public class Main {
         rm1.addResource("DB", "Connected");
         rm1.addResource("Cache", "Initialized");
 
+        System.out.println(rm1.getResource("Cache"));
         System.out.println(rm2.getResource("DB")); // Connected
 
         rm2.removeResource("Cache");
