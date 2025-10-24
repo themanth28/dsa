@@ -4,7 +4,7 @@ package Maths;
 public class GCD {
     public static void main(String[] args) {
         int a = 12;
-        int b = 9;
+        int b = 16;
         System.out.println(gcd(a,b));
     }
     public static int gcd(int a, int b){
