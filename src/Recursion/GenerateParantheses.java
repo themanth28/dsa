@@ -5,7 +5,7 @@ import java.util.List;
 
 public class GenerateParantheses {
     public static void main(String[] args) {
-        List<String> res = new ArrayList<String>();
+        List<String> res = new ArrayList<>();
         recurse(res, 0, 0, "", 3);
         System.out.println(res);
     }

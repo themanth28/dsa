@@ -6,6 +6,7 @@ class Solution {
 
     public static void main(String[] args) {
         int[] arr = {7,8,4,3,1};
+        System.out.println(Arrays.toString(arr));
         nextPermutation(arr);
         System.out.println(Arrays.toString(arr));
     }
@@ -27,6 +28,7 @@ class Solution {
 
             // Step 3: Swap nums[i] and nums[j]
             swap(nums, i, j);
+            System.out.println(Arrays.toString(nums));
         }
 
         // Step 4: Reverse the subarray from i+1 to end
